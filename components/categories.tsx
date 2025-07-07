@@ -9,6 +9,7 @@ interface CategoriesProps {
   data: Category[];
 }
 
+
 const Categories = ({ data }: CategoriesProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
