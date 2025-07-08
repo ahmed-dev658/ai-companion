@@ -30,9 +30,11 @@ const Categories = ({ data }: CategoriesProps) => {
 
   return (
     <div className="w-full overflow-x-auto space-x-2 flex p01">
-      {/* <button
+      <button
         onClick={() => onClick(undefined)}
-        className={cn(`         
+        className={cn(
+          ` 
+          cursor-pointer      
           flex
           items-center
           text-center
@@ -45,10 +47,12 @@ const Categories = ({ data }: CategoriesProps) => {
           rounded-md
           bg-primary/10
           hover:opacity-75
-          transition`)}
+          transition`,
+          // !categoryId ? "bg-primary/25" : "bg-primary/10"
+        )}
       >
         Newest
-      </button> */}
+      </button>
       {data.map((item) => (
         <button
           onClick={() => onClick(item.id)}
@@ -68,7 +72,7 @@ const Categories = ({ data }: CategoriesProps) => {
           bg-primary/10
           hover:opacity-75
           transition`,
-            item.id === categoryId ? "bg-primary/25" : "bg-primary/10"
+            !categoryId ? "bg-primary/25" : "bg-primary/10"
           )}
           key={item.id}
         >

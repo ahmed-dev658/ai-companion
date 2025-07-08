@@ -15,6 +15,48 @@ datasource db {
 }
 
 model Category {
-  id   String @id @default(uuid())
-  name String
+  id        String      @id @default(uuid())
+  name      String
+  Companion Companion[]
+}
+
+model Companion {
+  id           String @id @default(uuid())
+  userId       String
+  userName     String
+  src          String
+  name         String @db.Text
+  description  String
+  instructions String @db.Text
+  seed         String @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  category   Category  @relation(fields: [categoryId], references: [id])
+  categoryId String
+  message    Message[]
+
+  @@index([categoryId])
+  @@fulltext([name])
+}
+
+enum Role {
+  user
+  system
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  role      Role
+  context   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  companionId String
+  userId      String
+
+  companion Companion @relation(fields: [companionId], references: [id], onDelete: Cascade)
+
+  @@index([companionId])
 }
