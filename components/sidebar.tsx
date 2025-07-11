@@ -29,9 +29,6 @@ export const Sidebar = () => {
   ];
 
   const onNavigate = (url: string, pro: boolean) => {
-   
-   
-   
     return router.push(url);
   };
   return (
