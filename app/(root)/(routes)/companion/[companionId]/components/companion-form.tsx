@@ -29,6 +29,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Wand2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 interface CompanionFormProps {
   initialData: Companion | null;
@@ -72,7 +73,9 @@ Elon: Always! But right now, I'm particularly excited about Neuralink. It has th
 
 const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
   const router = useRouter();
-
+  const { user } = useUser();
+  const userId = user?.id;
+  console.log("🚀 ~ CompanionForm ~ userId:", userId, initialData?.userId);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
@@ -272,12 +275,14 @@ const CompanionForm = ({ initialData, categories }: CompanionFormProps) => {
               </FormItem>
             )}
           />
-          <div className="w-full flex justify-center">
-            <Button size={"lg"} disabled={isLoading}>
-              {initialData ? "Edit your companion" : "Create your companion"}
-              <Wand2 className="w-4 h-4 ml-2 " />
-            </Button>
-          </div>
+          {initialData?.userId === userId && (
+            <div className="w-full flex justify-center">
+              <Button size={"lg"} disabled={isLoading}>
+                {initialData ? "Edit your companion" : "Create your companion"}
+                <Wand2 className="w-4 h-4 ml-2 " />
+              </Button>
+            </div>
+          )}
         </form>
       </Form>
     </div>
