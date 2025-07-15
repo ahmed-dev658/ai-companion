@@ -24,7 +24,7 @@ export const ChatForm = ({
 }: ChatFormProps) => {
   return (
     <form
-      className="border-t border-primary/10 flex items-center gap-x-2"
+      className="border-t border-primary/10 py-4 flex items-center gap-x-2"
       onSubmit={onSubmit}
     >
       <Input
